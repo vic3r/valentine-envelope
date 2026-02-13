@@ -1,0 +1,306 @@
+/* Wes Anderson Palette: dusty rose, cream, mint, coral, warm gold */
+:root {
+  --cream: #F5F0E8;
+  --dusty-rose: #C9A9A6;
+  --rose-dark: #B89592;
+  --mint: #A8C5B5;
+  --coral: #E8B4A0;
+  --gold: #C9A227;
+  --warm-brown: #8B7355;
+  --ink: #2C2419;
+  --paper: #FAF7F2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.app {
+  min-height: 100vh;
+  background: linear-gradient(165deg, var(--cream) 0%, #E8E0D5 50%, var(--dusty-rose) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  color: var(--ink);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Film strip borders - Wes Anderson signature */
+.film-strip {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 24px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--ink) 0px,
+    var(--ink) 20px,
+    transparent 20px,
+    transparent 40px
+  );
+  opacity: 0.15;
+  z-index: 10;
+}
+
+.film-strip.top { top: 0; }
+.film-strip.bottom { bottom: 0; }
+
+.scene {
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 1.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.title-block {
+  margin-bottom: 3rem;
+}
+
+.chapter {
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--warm-brown);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2.8rem;
+  font-weight: 400;
+  margin: 0;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--warm-brown);
+  margin-top: 0.5rem;
+}
+
+/* Envelope */
+.envelope-container {
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.envelope {
+  position: relative;
+  width: 280px;
+  height: 180px;
+  margin: 0 auto 2rem;
+  transition: transform 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.envelope:hover:not(.open) {
+  transform: scale(1.03);
+}
+
+.envelope-body {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  height: 160px;
+  background: linear-gradient(180deg, var(--paper) 0%, #F0EBE3 100%);
+  border: 2px solid var(--dusty-rose);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 
+    0 4px 20px rgba(139, 115, 85, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.envelope.open .envelope-body {
+  z-index: 2;
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  border-top: 95px solid var(--dusty-rose);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  transform-origin: 50% 95px;
+  transition: transform 0.6s ease-out, opacity 0.4s 0.6s ease-out;
+  z-index: 2;
+}
+
+.envelope.open .envelope-flap {
+  transform: translateX(-50%) rotateX(-170deg);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.envelope-inner {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  background: var(--paper);
+  border: 1px solid rgba(201, 169, 166, 0.4);
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.letter-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--warm-brown);
+  font-style: italic;
+  font-size: 1rem;
+}
+
+/* Surprise content */
+.surprise-content {
+  animation: letterReveal 0.6s ease-out;
+}
+
+@keyframes letterReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.coupon-paper {
+  background: linear-gradient(180deg, #E8F5E9 0%, var(--paper) 100%);
+  border: 2px solid var(--ink);
+  padding: 1.5rem;
+  text-align: left;
+  box-shadow: 4px 4px 0 var(--mint);
+  margin-bottom: 1rem;
+}
+
+.coupon-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.matcha-icon {
+  font-size: 2rem;
+}
+
+.coupon-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  margin: 0;
+  font-weight: 600;
+}
+
+.coupon-body {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.coupon-body hr {
+  border: none;
+  border-top: 1px dashed var(--dusty-rose);
+  margin: 1rem 0;
+}
+
+.coupon-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 0.25rem 0;
+}
+
+.coupon-details {
+  margin: 0 0 0.75rem 0;
+  color: var(--warm-brown);
+}
+
+.coupon-code {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  margin: 0.5rem 0;
+}
+
+.coupon-expiry {
+  margin: 0.25rem 0;
+  font-style: italic;
+  color: var(--warm-brown);
+}
+
+.coupon-note {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--warm-brown);
+}
+
+.punchline {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--warm-brown);
+  padding: 0.5rem 1rem;
+  background: rgba(201, 169, 166, 0.2);
+  border-radius: 4px;
+  border-left: 3px solid var(--coral);
+}
+
+.instruction {
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--warm-brown);
+  opacity: 0.8;
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+  
+  .envelope {
+    width: 240px;
+    height: 155px;
+  }
+  
+  .envelope-body {
+    width: 220px;
+    height: 135px;
+  }
+  
+  .envelope-flap {
+    border-left-width: 120px;
+    border-right-width: 120px;
+    border-top-width: 80px;
+    transform-origin: 50% 80px;
+  }
+}
